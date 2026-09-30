@@ -1,0 +1,98 @@
+# Cascada municipal de atención de la hipertensión en México
+
+Repositorio de investigación del estudio **Estimación bayesiana de área pequeña de la cascada de atención de la hipertensión arterial en los municipios de México**, basado en ENSANUT Continua 2021–2024.
+
+Incluye el análisis en R, los resultados agregados, las figuras, la fuente del manuscrito y un [explorador municipal](https://vicente-main.github.io/sae-cascada-hta-mexico/). Los modelos BYM2 se ajustan con INLA mediante pseudo-verosimilitud ponderada; se consideran los umbrales ESH 2023 y ACC/AHA 2025.
+
+**Versión: `v1.5.2`.** Incorpora las decisiones de los autores, la corrección del comparador de validación, la Tabla S8 y la supresión de celdas pequeñas en archivos y descargas. Los materiales están preparados para el envío a *Salud Pública de México*; el repositorio no acredita que el artículo haya sido enviado o aceptado. Esta versión incorpora la revisión bibliográfica de septiembre de 2026 y reconstruye el historial de publicación en la cuenta de Vicente Jesús Vílchez-Díaz, conservando la autoría científica conjunta. La [procedencia](reproducibility/PROVENANCE.md) y el [historial](CHANGELOG.md) documentan la continuidad del estudio.
+
+Los mapas representan probabilidades condicionales estandarizadas a la composición adulta censal, no proporciones dentro de los denominadores clínicos municipales. Las estimaciones directas de encuesta se identifican por separado.
+
+## Organización
+
+```text
+analysis/                  Scripts R, construcción del explorador y preprocesamiento
+data/
+  raw/                     Microdatos ENSANUT, excluidos de Git
+  external/                Geografía INEGI; insumos ITER, CLUES y DEM locales
+  processed/               Covariables municipales y grafos
+results/
+  estimates/               Estimaciones agregadas, validación y sensibilidades
+  tables/                  Cuadros y checklist STROBE
+  figures/                 Figuras y sus datos en data/
+manuscript/                Fuente del manuscrito y suplemento
+reproducibility/           Entorno registrado, inventario de rutas y verificaciones
+docs/                     Explorador publicado mediante GitHub Pages
+RUN_ALL.R                 Ejecutor del análisis desde la raíz
+```
+
+- [Fuentes y ubicación de los datos](data/README.md).
+- [Procedimiento de reproducción y sus límites](reproducibility/README.md).
+- [Guía de resultados](results/README.md).
+- [Preparación del manuscrito](manuscript/README.md).
+- [Equivalencias entre rutas antiguas y actuales](reproducibility/path_migration.csv).
+
+## Reproducir
+
+El análisis registrado se ejecutó con **R 4.6.0 e INLA 25.10.19**. Las versiones observadas están en [sessionInfo.txt](reproducibility/sessionInfo.txt) y [r-packages.csv](reproducibility/r-packages.csv). No constituyen un archivo de restauración automática. Se requiere además Python 3.10 o posterior para construir el HTML del explorador.
+
+1. Instalar R y los paquetes registrados; INLA se distribuye en su [repositorio oficial](https://www.r-inla.org/download-install).
+2. Descargar los microdatos ENSANUT y los insumos ITER y CLUES indicados en [data/README.md](data/README.md). ITER se utiliza desde el paso 02.
+3. Ejecutar desde la raíz del repositorio:
+
+```sh
+Rscript RUN_ALL.R --list
+Rscript RUN_ALL.R
+```
+
+Para reconstruir únicamente artefactos después de disponer de las bases e intermedios del análisis:
+
+```sh
+Rscript RUN_ALL.R 18 30
+```
+
+Los argumentos son **posiciones de la lista**, no números del nombre de archivo. Las posiciones 1–25 conservan el orden histórico; 26 calcula la Tabla S7, 27 construye el HTML, 28 genera S8, 29 reconstruye el suplemento y 30 aplica la supresión a los archivos públicos y reconstruye el explorador. Toda regeneración de resultados debe terminar en el paso 30 antes de publicarse. Para reconstruir solo el HTML con el JSON ya suprimido:
+
+```sh
+python analysis/25_explorador_html.py
+```
+
+Para verificar integridad y rutas sin microdatos ni INLA:
+
+```sh
+python reproducibility/verify_repository.py
+```
+
+Esta última comprobación no vuelve a estimar los modelos ni certifica el cierre científico del manuscrito. Los ajustes INLA y la validación cruzada son los pasos costosos. La reorganización conserva las salidas existentes; no presenta un nuevo ajuste estadístico.
+
+## Datos y alcance
+
+Los microdatos y la base individual derivada no se redistribuyen. Los CSV públicos contienen estimaciones y diagnósticos municipales. Las celdas con `suprimir_privacidad=TRUE` omiten estimación, intervalos, ancho y n exacto en archivos descargables, figuras y explorador; conservan identificadores y marcas de supresión. Este repositorio comienza con esa política aplicada y no incorpora el historial con valores anteriores a la supresión. Véase [results/README.md](results/README.md).
+
+Los mapas presentan estimaciones modeladas y su incertidumbre; no sustituyen mediciones municipales representativas. La cobertura y los municipios sin predicción están documentados en `results/estimates/resumen_cobertura_nacional.csv` y `municipios_sin_cobertura.csv`.
+
+## Autoría
+
+| Autor | ORCID | Roles (taxonomía CRediT) |
+|---|---|---|
+| Vicente J. Vílchez-Díaz | [0009-0007-3755-8226](https://orcid.org/0009-0007-3755-8226) | Conceptualización, metodología, **software**, análisis formal, curación de datos, validación, visualización, redacción |
+| Oriana García-Ruiz | [0000-0002-7233-9703](https://orcid.org/0000-0002-7233-9703) | Investigación, redacción del borrador original, revisión y edición |
+| Samar S. Sifuentes-Vidigal | [0009-0006-8564-8317](https://orcid.org/0009-0006-8564-8317) | Investigación, redacción del borrador original |
+| Miguel A. Velarde-Mera | [0009-0009-6073-9767](https://orcid.org/0009-0009-6073-9767) | Investigación, redacción del borrador original |
+| Rodrigo J. Cárdenas-Golac | [0009-0005-4444-1523](https://orcid.org/0009-0005-4444-1523) | Supervisión, administración del proyecto, recursos, revisión y edición |
+
+Vicente Jesús Vílchez-Díaz mantiene este repositorio y publica su versión inicial desde la cuenta `vicente-main`. La autoría de los commits de publicación no sustituye las contribuciones científicas de la tabla anterior. El repositorio comienza con una instantánea del trabajo conjunto; no representa una creación individual desde cero.
+
+Durante la preparación del trabajo se utilizó asistencia de inteligencia artificial en la
+implementación y depuración del código, la redacción y la traducción al inglés. El detalle está en
+la sección «Declaración de uso de IA» del manuscrito. Conforme a las políticas del ICMJE, las
+herramientas de IA no figuran como autoras: los autores asumen la responsabilidad
+completa por la exactitud, integridad y originalidad del trabajo.
+
+## Citar y reutilizar
+
+Quienes colaboren después de la republicación del 29 de septiembre de 2026 deben clonar de nuevo este repositorio, sin fusionar ramas del historial anterior. En cada copia, activar `git config core.hooksPath .githooks` y configurar la identidad humana propia. Los hooks comprueban los metadatos antes del commit y del push; GitHub Actions repite la comprobación. Estos controles preservan la declaración de asistencia de IA del manuscrito.
+
+Los metadatos de autoría están en [CITATION.cff](CITATION.cff). Para reutilizar el material, cite la versión `v1.5.2`, este repositorio y el hash del commit utilizado. La versión citada en el artículo debe corresponder al paquete efectivamente enviado.
+
+El código se distribuye bajo la [licencia MIT](LICENSE). Los insumos de ENSANUT, INEGI, CONEVAL y CLUES mantienen sus condiciones de origen. La licencia del código no concede derechos adicionales sobre los datos de terceros ni determina la licencia futura del artículo.

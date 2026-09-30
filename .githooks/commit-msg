@@ -1,0 +1,2 @@
+#!/bin/sh
+exec python "$(git rev-parse --show-toplevel)/reproducibility/check_commit_metadata.py" --message-file "$1"

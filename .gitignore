@@ -1,0 +1,88 @@
+# Fuentes externas y microdatos: ver data/README.md.
+/data/raw/**
+!/data/raw/README.md
+/data/external/iter/**
+/data/external/clues/**
+/data/external/dem_cache/**
+/data/external/**/*.zip
+
+# Bases individuales, ponderadores, modelos e intermedios locales.
+/results/estimates/*.rds
+/results/estimates/base_analitica_adultos_2021_2024.csv
+/results/estimates/ponderador_calibrado.csv
+/results/estimates/postestratificacion_censal.csv
+/results/estimates/EXPLORATORIO_*.csv
+/results/estimates/VALIDACION_estrato_*.csv
+/results/estimates/modelo_prueba_concepto_conciencia_ESH.csv
+/results/estimates/n_por_celda_municipio_anio_2021_2024.csv
+/results/estimates/n_pooled_por_municipio_2021_2024.csv
+/results/estimates/flujo_por_anio_2021_2024.csv
+/data/processed/covariates/estrato_*.csv
+
+# Contacto, formularios, firmas y paquetes editoriales privados.
+/manuscript/private/
+/submission/
+/archive/
+/0_ENVIO*/
+LEEME_CORRESPONDENCIA.txt
+DECLARACION_*
+CONFLICTO_INTERESES_*
+CARTA_DE_SOMETIMIENTO*
+DJ_*
+PLANTILLA_DJ_*
+
+# Generadores editoriales antiguos: requieren revision antes de incorporarlos.
+/analysis/00c_*.R
+/analysis/18b_*.py
+/analysis/19_*.R
+/analysis/21_*.R
+!/analysis/21_material_suplementario.R
+/analysis/22_*.R
+/analysis/23_*.py
+/analysis/24_*.py
+/analysis/25_*.R
+/CONSTRUIR_*.R
+/_MD_*.md
+
+# Archivos privados heredados que permanecen al actualizar una copia antigua.
+/_TRABAJO_INTERNO/
+/4_HISTORICO/
+/DATOS_ENSANUT/
+/DATOS_GEO_MEXICO/
+/COVARIABLES/
+/RESULTADOS/
+/CODIGO/
+/ESTADO.md
+/ADAPTACION_*.md
+/PLAN_*.md
+/LEEME_*.md
+/LEEME_*.txt
+/INFORME_*.md
+/AUDITORIA_*.md
+/BITACORA_*.md
+/COMPARACION_*.md
+/MANUSCRITO_BORRADOR_*.docx
+
+# Referencias PDF heredadas en la raiz; los documentos propios pueden ir en manuscript/.
+/*.pdf
+/adminojs*
+/1726-4642-*
+
+# Entornos, caches y respaldos.
+.venv/
+.Rproj.user/
+.Rhistory
+.RData
+.Renviron
+__pycache__/
+*.pyc
+*.log
+*_log.txt
+*.bak
+*.bundle
+.DS_Store
+Thumbs.db
+
+# Comunicacion temporal: no forma parte de las versiones publicadas.
+/TEMPORAL/
+/results/private/

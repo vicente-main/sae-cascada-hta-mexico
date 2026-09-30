@@ -1,0 +1,15 @@
+{
+  "source_commit": "c107b9862438a8c18159c4ff47b25e207cd18fc6",
+  "release": "v1.5.2",
+  "inla_refitted": false,
+  "existing_S1_through_S7_table_cells_preserved": true,
+  "table_S8_restored_from_published_inputs": true,
+  "previously_approved_notes_restored": true,
+  "updated_S6_and_DHS_references_preserved": true,
+  "supplement_regenerated_with_current_source": true,
+  "main_manuscript_changes": "Version citation only; author revision preserved",
+  "dashboard_unchanged": true,
+  "source_files": 163,
+  "source_files_unchanged": 148,
+  "s6_generator_reproduces_all_cells": true
+}
